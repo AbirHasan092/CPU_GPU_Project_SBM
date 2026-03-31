@@ -1,5 +1,5 @@
 /**
- * SBM2 — Simulated Bifurcation Machine with User-Controlled Parameters
+ * SBM — Simulated Bifurcation Machine with User-Controlled Parameters
  *
  * All SBM model parameters, noise level, and Euler step size are
  * configurable via command-line flags.
@@ -49,7 +49,6 @@
 
 using namespace std;
 
-// ─── Utilities ───────────────────────────────────────────────────────────────
 
 static void stripCR(string& s) {
     if (!s.empty() && s.back() == '\r') s.pop_back();
@@ -61,7 +60,7 @@ static bool isInt(const string& s) {
     return true;
 }
 
-// ─── Graph ───────────────────────────────────────────────────────────────────
+//  Graph 
 
 struct Graph {
     string name;
@@ -112,7 +111,7 @@ bool loadGraph(const string& filename, Graph& g) {
     return g.n>0 && g.m>0;
 }
 
-// ─── MaxCut eval + local search ──────────────────────────────────────────────
+//  MaxCut eval + local search 
 
 int evalCut(const Graph& g, const vector<int>& spins) {
     int cut=0;
@@ -130,7 +129,7 @@ void localSearch(const Graph& g, vector<int>& spins) {
     }
 }
 
-// ─── SBM parameters ──────────────────────────────────────────────────────────
+// SBM parameters 
 
 struct SBMParams {
     // Euler integration
@@ -159,7 +158,7 @@ SBMParams scaleParams(const SBMParams& base, int n) {
     return p;
 }
 
-// ─── bSB solver ──────────────────────────────────────────────────────────────
+// bSB solver 
 
 vector<int> solveBSB(const Graph& g, const SBMParams& p, mt19937& rng) {
     int n=g.n;
@@ -202,7 +201,7 @@ vector<int> solveBSB(const Graph& g, const SBMParams& p, mt19937& rng) {
     return best;
 }
 
-// ─── dSB solver ──────────────────────────────────────────────────────────────
+//  dSB solver 
 
 vector<int> solveDSB(const Graph& g, const SBMParams& p, mt19937& rng) {
     int n=g.n;
@@ -245,7 +244,7 @@ vector<int> solveDSB(const Graph& g, const SBMParams& p, mt19937& rng) {
     return best;
 }
 
-// ─── Per-graph driver ─────────────────────────────────────────────────────────
+//  Per-graph driver 
 
 void solveGraph(const Graph& g, const SBMParams& base) {
     SBMParams p = scaleParams(base, g.n);
@@ -317,7 +316,7 @@ void solveGraph(const Graph& g, const SBMParams& base) {
     }
 }
 
-// ─── CLI argument parser ─────────────────────────────────────────────────────
+//  CLI argument parser 
 
 static void printHelp(const char* prog) {
     cout<<
@@ -397,7 +396,7 @@ SBMParams parseArgs(int argc, char* argv[], vector<string>& files) {
     return p;
 }
 
-// ─── Main ────────────────────────────────────────────────────────────────────
+// Main 
 
 int main(int argc, char* argv[]) {
     cout<<"======================================================\n";
