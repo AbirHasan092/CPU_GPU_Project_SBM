@@ -23,11 +23,12 @@
 #include <vector>
 #include <random>
 #include <iomanip>
+#include <string>
 
 // ── User-configurable parameters ─────────────────────────────────────────────
 
 const int NUM_NODES  = 5000;   // number of nodes n
-const int NUM_GRAPHS = 20;    // number of graphs to generate
+const int NUM_GRAPHS = 10;    // number of graphs to generate
 
 // ─────────────────────────────────────────────────────────────────────────────
 
